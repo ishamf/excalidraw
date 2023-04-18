@@ -1,3 +1,12 @@
+
+This is a fork of excalidraw that will have a separate localstorage instance for each HTTP path (e.g. `/some-thing`).
+
+The implementation is quite hacky, no guarantees that your data will be safe. Use at your own risk.
+
+It's available in https://excd-fork.ishamf.com/
+
+---
+
 <a href="https://excalidraw.com/" target="_blank" rel="noopener">
   <picture>
     <source media="(prefers-color-scheme: dark)" alt="Excalidraw" srcset="https://excalidraw.nyc3.cdn.digitaloceanspaces.com/github%2FExcalidraw_Github_cover_dark.png" />
