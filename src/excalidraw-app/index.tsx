@@ -373,11 +373,6 @@ const ExcalidrawWrapper = () => {
       }
     };
 
-    const titleTimeout = setTimeout(
-      () => (document.title = APP_NAME),
-      TITLE_TIMEOUT,
-    );
-
     const syncData = debounce(() => {
       if (isTestEnv()) {
         return;
@@ -464,9 +459,19 @@ const ExcalidrawWrapper = () => {
         visibilityChange,
         false,
       );
-      clearTimeout(titleTimeout);
     };
   }, [collabAPI, excalidrawAPI, setLangCode]);
+
+  useEffect(() => {
+    const titleTimeout = setTimeout(
+      () => (document.title = `${APP_NAME} | /${CURRENT_POSTFIX}`),
+      TITLE_TIMEOUT,
+    );
+
+    return () => {
+      clearTimeout(titleTimeout);
+    };
+  }, []);
 
   useEffect(() => {
     const unloadHandler = (event: BeforeUnloadEvent) => {
