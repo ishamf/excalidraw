@@ -16,7 +16,11 @@ import { clearElementsForLocalStorage } from "../../element";
 import { ExcalidrawElement, FileId } from "../../element/types";
 import { AppState, BinaryFileData, BinaryFiles } from "../../types";
 import { debounce } from "../../utils";
-import { SAVE_TO_LOCAL_STORAGE_TIMEOUT, STORAGE_KEYS } from "../app_constants";
+import {
+  CURRENT_POSTFIX,
+  SAVE_TO_LOCAL_STORAGE_TIMEOUT,
+  STORAGE_KEYS,
+} from "../app_constants";
 import { FileManager } from "./FileManager";
 import { Locker } from "./Locker";
 import { updateBrowserStateVersion } from "./tabSync";
@@ -74,6 +78,19 @@ export class LocalData {
       onFilesSaved: () => void,
     ) => {
       saveDataStateToLocalStorage(elements, appState);
+
+      // Update list of postfixes with current
+      const currentPostfixes = JSON.parse(
+        localStorage.getItem(STORAGE_KEYS.ACTIVE_POSTFIXES) || "[]",
+      );
+
+      if (!currentPostfixes.includes(CURRENT_POSTFIX)) {
+        currentPostfixes.push(CURRENT_POSTFIX);
+        localStorage.setItem(
+          STORAGE_KEYS.ACTIVE_POSTFIXES,
+          JSON.stringify(currentPostfixes),
+        );
+      }
 
       await this.fileStorage.saveFiles({
         elements,

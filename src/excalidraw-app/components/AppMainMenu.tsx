@@ -6,10 +6,17 @@ import { LanguageList } from "./LanguageList";
 export const AppMainMenu: React.FC<{
   setCollabDialogShown: (toggle: boolean) => any;
   isCollaborating: boolean;
+  currentPostfixes: string[];
 }> = React.memo((props) => {
   return (
     <MainMenu>
       <MainMenu.DefaultItems.LoadScene />
+      {props.currentPostfixes.map((postfix) => (
+        <MainMenu.DefaultItems.OpenOtherPostfix
+          postfix={postfix}
+          key={postfix}
+        />
+      ))}
       <MainMenu.DefaultItems.SaveToActiveFile />
       <MainMenu.DefaultItems.Export />
       <MainMenu.DefaultItems.SaveAsImage />

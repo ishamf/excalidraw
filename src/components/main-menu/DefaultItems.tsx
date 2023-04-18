@@ -75,6 +75,19 @@ export const SaveToActiveFile = () => {
 };
 SaveToActiveFile.displayName = "SaveToActiveFile";
 
+export const OpenOtherPostfix = ({ postfix }: { postfix: string }) => {
+  // const { t } = useI18n();
+
+  return (
+    <DropdownMenuItem
+      onSelect={() => (window.location.pathname = `/${postfix}`)}
+      icon={LoadIcon}
+      aria-label={`Go to /${postfix}`}
+    >{`Go to /${postfix}`}</DropdownMenuItem>
+  );
+};
+OpenOtherPostfix.displayName = "OpenOtherPostfix";
+
 export const SaveAsImage = () => {
   const setAppState = useExcalidrawSetAppState();
   const { t } = useI18n();

@@ -43,6 +43,7 @@ import {
   resolvablePromise,
 } from "../utils";
 import {
+  CURRENT_POSTFIX,
   FIREBASE_STORAGE_PREFIXES,
   STORAGE_KEYS,
   SYNC_BROWSER_TABS_TIMEOUT,
@@ -498,6 +499,18 @@ const ExcalidrawWrapper = () => {
       THEME.LIGHT,
   );
 
+  const [currentPostfixes] = useState<string[]>(() => {
+    const postfixes = JSON.parse(
+      localStorage.getItem(STORAGE_KEYS.ACTIVE_POSTFIXES) || "[]",
+    );
+
+    if (postfixes.indexOf(CURRENT_POSTFIX) === -1) {
+      postfixes.push(CURRENT_POSTFIX);
+    }
+
+    return postfixes;
+  });
+
   useEffect(() => {
     localStorage.setItem(STORAGE_KEYS.LOCAL_STORAGE_THEME, theme);
     // currently only used for body styling during init (see public/index.html),
@@ -662,6 +675,7 @@ const ExcalidrawWrapper = () => {
         <AppMainMenu
           setCollabDialogShown={setCollabDialogShown}
           isCollaborating={isCollaborating}
+          currentPostfixes={currentPostfixes}
         />
         <AppWelcomeScreen setCollabDialogShown={setCollabDialogShown} />
         <AppFooter />

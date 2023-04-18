@@ -29,14 +29,19 @@ export const FIREBASE_STORAGE_PREFIXES = {
 
 export const ROOM_ID_BYTES = 10;
 
+export const CURRENT_POSTFIX = (window.location.pathname?.match(
+  /[^\w-]*([\w-]+)[^\w-]*/i,
+)?.[1] || "") as "pathname";
+
 export const STORAGE_KEYS = {
-  LOCAL_STORAGE_ELEMENTS: "excalidraw",
-  LOCAL_STORAGE_APP_STATE: "excalidraw-state",
-  LOCAL_STORAGE_COLLAB: "excalidraw-collab",
-  LOCAL_STORAGE_LIBRARY: "excalidraw-library",
-  LOCAL_STORAGE_THEME: "excalidraw-theme",
-  VERSION_DATA_STATE: "version-dataState",
-  VERSION_FILES: "version-files",
+  ACTIVE_POSTFIXES: "excalidraw-active-postfixes",
+  LOCAL_STORAGE_ELEMENTS: `excalidraw-${CURRENT_POSTFIX}`,
+  LOCAL_STORAGE_APP_STATE: `excalidraw-state-${CURRENT_POSTFIX}`,
+  LOCAL_STORAGE_COLLAB: `excalidraw-collab-${CURRENT_POSTFIX}`,
+  LOCAL_STORAGE_LIBRARY: `excalidraw-library-${CURRENT_POSTFIX}`,
+  LOCAL_STORAGE_THEME: `excalidraw-theme-${CURRENT_POSTFIX}`,
+  VERSION_DATA_STATE: `version-dataState-${CURRENT_POSTFIX}`,
+  VERSION_FILES: `version-files-${CURRENT_POSTFIX}`,
 } as const;
 
 export const COOKIES = {
